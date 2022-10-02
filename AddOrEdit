@@ -1,0 +1,64 @@
+USE [AssecoDB]
+GO
+/****** Object:  StoredProcedure [dbo].[AddOrEdit]    Script Date: 2.10.2022. 21:02:31 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+ALTER PROCEDURE [dbo].[AddOrEdit]
+	@Id INT,
+	@Name Varchar(50),
+	@Email Varchar(50),
+	@Username Varchar(50),
+	@City Varchar(50),
+	@Street Varchar(50),
+	@Suite Varchar(50),
+	@Zipcode Varchar(50),
+	@Lat Varchar(50),
+	@Lng Varchar(50),
+	@Phone Varchar(50),
+	@Website Varchar(50),
+	@CompanyName Varchar(50),
+	@CompanyCatchPhrase Varchar(50),
+	@Bs Varchar(50)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	IF @Id = 0
+	BEGIN
+		INSERT INTO Asseco(Name,Username,Email,Street,Suite,City,Zipcode,Lat,Lng,Phone,Website,CompanyName,CompanyCatchPhrase,Bs)
+		VALUES(@Name,@Username,@Email,@Street,@Suite,@City,@Zipcode,@Lat,@Lng,@Phone,@Website,@CompanyName,@CompanyCatchPhrase,@Bs)
+	END
+	ELSE
+	BEGIN
+		UPDATE Asseco
+		SET	
+			 Name = @Name,
+             Username = @Username,
+             Email= @Email,
+             City= @City,
+             Street= @Street,
+             Suite= @Suite,
+             Zipcode= @Zipcode,
+             Lat= @Lat,
+             Lng= @Lng,
+             Phone= @Phone,
+             Website= @Website,
+             CompanyName= @CompanyName,
+             CompanyCatchPhrase= @CompanyCatchPhrase,
+             Bs= @Bs
+		WHERE id = @Id
+	END
+END
